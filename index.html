@@ -10,6 +10,7 @@
     <title>Smart Bakery Demand Predictor</title>
     <link rel="stylesheet" href="style.css">
     <script src="script.js" defer></script>
+    <script src="assistant.js" defer></script>
 </head>
 
 <body>
@@ -22,10 +23,11 @@
             <a href="#records">▤ <span>Daily records</span></a><a href="#forecast">↗ <span>Demand forecast</span>
             </a><a href="#planner">◷ <span>Production planner</span></a><a href="#reports">▥ <span>Reports &
                     data</span></a>
+            <a href="#assistant">✦ <span>AI bakery assistant</span></a>
         </nav>
         <div class="sidebar-note"><span>BAKE WITH A PLAN</span>
             <p>A little less guesswork.<br>A little more goodness.</p>
-            <small>Your data stays in this browser.</small>
+            <small>Records stay here unless you share them with AI.</small>
         </div>
     </aside>
     <main>
@@ -207,7 +209,38 @@
                     retain the price and cost at the time of entry.</p>
             </article>
         </section>
-        <footer>Made for thoughtful baking. <span>Local-first · No account needed · Statistical forecasting</span>
+        <section id="assistant" class="view" hidden>
+            <div class="two-col">
+                <article class="card">
+                    <span class="eyebrow">YOUR AI BAKERY ASSISTANT</span>
+                    <h2>Talk through your next bake.</h2>
+                    <p>Get help understanding sales, reducing overproduction and reviewing your production plan. AI advice can be mistaken; review quantities before baking.</p>
+                    <label class="check"><input id="chat-share" type="checkbox"> Share a bakery summary with Google Gemini</label>
+                    <p class="muted">Off by default. When enabled, each message includes the dashboard date range, product sales totals, up to 90 daily totals, current statistical forecasts and the saved plan. Review the range on Dashboard first. Your question and recent chat messages are always sent to Google Gemini through this site's server.</p>
+                    <details><summary>Connection & privacy</summary>
+                        <label>Assistant access code<input id="chat-access" type="password" autocomplete="off" placeholder="Site owner's private access code"></label>
+                        <p class="muted">This is an access code for your bakery server, never an Google Gemini API key. It stays in memory for this page only. Chat history also stays in memory; refresh or clear to remove it here. Clearing does not retract messages already sent. Google’s API data policies apply; free-tier content may be used to improve Google products.</p>
+                        <p class="muted">Setup requires a server-side GEMINI_API_KEY. See README.md. Local Node hosting and Netlify Functions are supported; GitHub Pages alone cannot serve the AI endpoint.</p>
+                    </details>
+                    <div class="chat-prompts">
+                        <button type="button" data-chat-prompt="Which products have the most leftovers in my selected date range?">Find leftover patterns ↗</button>
+                        <button type="button" data-chat-prompt="Help me review my next production plan using my statistical forecast and batch sizes.">Review my next bake ↗</button>
+                        <button type="button" data-chat-prompt="What practical steps could a small bakery take to avoid overproduction?">Get production tips ↗</button>
+                    </div>
+                </article>
+                <article class="card chat-card">
+                    <div class="card-heading"><h2>Bakery conversation</h2><button type="button" id="chat-clear">Clear chat</button></div>
+                    <div id="chat-log" role="log" aria-label="Bakery assistant conversation" aria-live="polite"></div>
+                    <form id="chat-form">
+                        <label for="chat-question">Your question</label>
+                        <textarea id="chat-question" rows="3" maxlength="3000" required placeholder="What should I focus on for tomorrow’s bake?"></textarea>
+                        <div class="actions"><button class="primary" id="chat-send">Ask AI →</button><button type="button" id="chat-cancel" hidden>Stop request</button></div>
+                    </form>
+                    <p id="chat-status" role="status" class="muted"></p>
+                </article>
+            </div>
+        </section>
+        <footer>Made for thoughtful baking. <span>Local records · Optional AI chat · Statistical forecasting</span>
         </footer>
     </main>
 </body>
