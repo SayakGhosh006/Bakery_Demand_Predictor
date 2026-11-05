@@ -1,5 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap');
 
+.chat-card{display:flex;flex-direction:column}.chat-prompts{display:grid;gap:10px;margin-top:24px}.chat-prompts button{text-align:left}#chat-log{min-height:260px;max-height:500px;overflow-y:auto;padding:10px 0}.chat-message{padding:15px 18px;margin-bottom:14px;background:#f7f3eb;border-radius:10px}.chat-message.user{background:#eee3d6;margin-left:28px}.chat-message b{font-size:11px;color:var(--accent)}.chat-message p{white-space:pre-wrap;overflow-wrap:anywhere;margin:8px 0 0}#chat-question{width:100%;resize:vertical;padding:13px;border:1px solid #ded9cf;border-radius:7px;font:inherit;background:#fdfcf9;color:var(--ink);margin-bottom:12px}button:disabled{opacity:.55;cursor:wait}#chat-status{overflow-wrap:anywhere}#assistant details label{margin-top:16px}
+
 :root {
     --bg: #f8f7f3;
     --ink: #302b25;
@@ -28,7 +30,34 @@ aside {
     border-right: 1px solid var(--line);
     padding: 36px 23px;
     display: flex;
-    flex-direction: column
+    flex-direction: column;
+    overflow-y: auto;
+    overflow-x: hidden;
+    scrollbar-gutter: stable;
+    scrollbar-width: thin;
+    scrollbar-color: #b98b6c #e9e3d8
+}
+
+aside > * {
+    flex-shrink: 0
+}
+
+aside::-webkit-scrollbar {
+    width: 8px
+}
+
+aside::-webkit-scrollbar-track {
+    background: #e9e3d8
+}
+
+aside::-webkit-scrollbar-thumb {
+    background: #b98b6c;
+    border: 2px solid #e9e3d8;
+    border-radius: 8px
+}
+
+aside::-webkit-scrollbar-thumb:hover {
+    background: var(--accent)
 }
 
 .brand {
@@ -642,6 +671,8 @@ footer {
     aside {
         position: static;
         width: auto;
+        overflow: visible;
+        scrollbar-gutter: auto;
         padding: 18px
     }
 
