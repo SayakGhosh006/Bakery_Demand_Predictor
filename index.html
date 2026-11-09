@@ -10,6 +10,7 @@
     <title>Smart Bakery Demand Predictor</title>
     <link rel="stylesheet" href="style.css">
     <script src="script.js" defer></script>
+    <script src="ml-forecast.js" defer></script>
     <script src="assistant.js" defer></script>
 </head>
 
@@ -149,6 +150,15 @@
             <article class="card">
                 <h2>Demand forecast</h2>
                 <div id="forecast-results" class="table-wrap"></div>
+                <button type="button" id="try-ml-forecast" aria-expanded="false" aria-controls="ml-forecast">Try ML forecast</button>
+            </article>
+            <article class="card" id="ml-forecast" hidden>
+                <h2>Demo ML forecast</h2>
+                <span class="pill warn">Trained on synthetic data</span>
+                <p class="muted">Compare predictions for the demo products. The model uses weekday, recent sales, and whether there is a holiday or event. The weather and percentage adjustments apply to the current forecast.</p>
+                <p class="muted">This comparison is a preview. Calculate &amp; save forecast and Production planner use the current forecast.</p>
+                <p id="ml-status" role="status"></p>
+                <div id="ml-results" class="table-wrap"></div>
             </article>
             <details class="card" open>
                 <summary>How the statistical forecast works</summary>
@@ -217,9 +227,8 @@
                     <p>Get help understanding sales, reducing overproduction and reviewing your production plan. AI advice can be mistaken; review quantities before baking.</p>
                     <label class="check"><input id="chat-share" type="checkbox"> Share a bakery summary with Google Gemini</label>
                     <p class="muted">Off by default. When enabled, each message includes the dashboard date range, product sales totals, up to 90 daily totals, current statistical forecasts and the saved plan. Review the range on Dashboard first. Your question and recent chat messages are always sent to Google Gemini through this site's server.</p>
-                    <details><summary>Connection & privacy</summary>
-                        <label>Assistant access code<input id="chat-access" type="password" autocomplete="off" placeholder="Site owner's private access code"></label>
-                        <p class="muted">This is an access code for your bakery server, never an Google Gemini API key. It stays in memory for this page only. Chat history also stays in memory; refresh or clear to remove it here. Clearing does not retract messages already sent. Google’s API data policies apply; free-tier content may be used to improve Google products.</p>
+                    <details><summary>Chat privacy</summary>
+                        <p class="muted">Questions are sent to Google Gemini. Your bakery summary is shared only if you turn on the option above. Chat history stays on this page until you refresh or clear it. Clearing does not retract messages already sent. Google’s API data policies apply; free-tier content may be used to improve Google products.</p>
                         <p class="muted">Setup requires a server-side GEMINI_API_KEY. See README.md. Local Node hosting and Netlify Functions are supported; GitHub Pages alone cannot serve the AI endpoint.</p>
                     </details>
                     <div class="chat-prompts">
